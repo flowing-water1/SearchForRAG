@@ -1,0 +1,21 @@
+{"timestamp": "2025-07-11T16:55:07.020986", "level": "INFO", "logger": "__main__", "message": "🚀 开始文档导入流程...", "module": "ingest_documents", "function": "main", "line": 119}
+{"timestamp": "2025-07-11T16:55:07.021308", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 120}
+{"timestamp": "2025-07-11T16:55:07.021518", "level": "INFO", "logger": "__main__", "message": "RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/data/lightrag", "module": "ingest_documents", "function": "main", "line": 133}
+{"timestamp": "2025-07-11T16:55:07.021688", "level": "INFO", "logger": "__main__", "message": "开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs", "module": "ingest_documents", "function": "main", "line": 150}
+{"timestamp": "2025-07-11T16:55:07.023657", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-11T16:55:26.086648", "level": "INFO", "logger": "__main__", "message": "🚀 开始文档导入流程...", "module": "ingest_documents", "function": "main", "line": 119}
+{"timestamp": "2025-07-11T16:55:26.086941", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 120}
+{"timestamp": "2025-07-11T16:55:26.087136", "level": "INFO", "logger": "__main__", "message": "RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/data/lightrag", "module": "ingest_documents", "function": "main", "line": 133}
+{"timestamp": "2025-07-11T16:55:26.087281", "level": "INFO", "logger": "__main__", "message": "初始化LightRAG系统...", "module": "ingest_documents", "function": "main", "line": 137}
+{"timestamp": "2025-07-11T16:55:26.371459", "level": "INFO", "logger": "__main__", "message": "开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs", "module": "ingest_documents", "function": "main", "line": 150}
+{"timestamp": "2025-07-11T16:55:26.375308", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-11T16:56:05.642125", "level": "INFO", "logger": "__main__", "message": "🚀 开始文档导入流程...", "module": "ingest_documents", "function": "main", "line": 119}
+{"timestamp": "2025-07-11T16:56:05.642417", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 120}
+{"timestamp": "2025-07-11T16:56:05.642656", "level": "INFO", "logger": "__main__", "message": "RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/data/lightrag", "module": "ingest_documents", "function": "main", "line": 133}
+{"timestamp": "2025-07-11T16:56:05.642805", "level": "INFO", "logger": "__main__", "message": "初始化LightRAG系统...", "module": "ingest_documents", "function": "main", "line": 137}
+{"timestamp": "2025-07-11T16:56:07.329310", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-11T17:06:00.754941", "level": "INFO", "logger": "__main__", "message": "🚀 开始文档导入流程...", "module": "ingest_documents", "function": "main", "line": 119}
+{"timestamp": "2025-07-11T17:06:00.755203", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 120}
+{"timestamp": "2025-07-11T17:06:00.755367", "level": "INFO", "logger": "__main__", "message": "RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/data/lightrag", "module": "ingest_documents", "function": "main", "line": 133}
+{"timestamp": "2025-07-11T17:06:00.755499", "level": "INFO", "logger": "__main__", "message": "初始化LightRAG系统...", "module": "ingest_documents", "function": "main", "line": 137}
+{"timestamp": "2025-07-11T17:06:17.550446", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}

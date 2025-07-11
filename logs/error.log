@@ -1,0 +1,4 @@
+{"timestamp": "2025-07-11T16:55:07.023657", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-11T16:55:26.375308", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-11T16:56:07.329310", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-11T17:06:17.550446", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
