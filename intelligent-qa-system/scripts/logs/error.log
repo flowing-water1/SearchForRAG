@@ -1,0 +1,8 @@
+{"timestamp": "2025-07-11T14:26:45.137925", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 137}
+{"timestamp": "2025-07-11T15:05:30.492862", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 162}
+{"timestamp": "2025-07-11T16:15:18.670321", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-11T16:17:36.673533", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-11T16:19:09.262323", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-11T16:43:40.423621", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-11T16:49:17.012559", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-11T16:52:08.821341", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}

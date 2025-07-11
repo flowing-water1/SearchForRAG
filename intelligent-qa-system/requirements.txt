@@ -1,0 +1,42 @@
+# Core dependencies
+python-dotenv>=1.0.0
+langchain>=0.1.0
+langchain-openai>=0.1.0
+langgraph>=0.1.0
+streamlit>=1.28.0
+
+# Database dependencies
+psycopg2-binary>=2.9.0
+neo4j>=5.0.0
+pgvector>=0.2.0
+
+# LightRAG dependencies (HKUDS/LightRAG)
+# Install from GitHub for latest version with all dependencies
+git+https://github.com/HKUDS/LightRAG.git
+
+# Search dependencies
+tavily-python>=0.3.0
+
+# System monitoring dependencies
+psutil>=5.9.0
+
+# Utility dependencies
+pydantic>=2.0.0
+typing-extensions>=4.0.0
+pathlib>=1.0.0
+
+# Development dependencies
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Optional dependencies for visualization
+matplotlib>=3.0.0
+networkx>=3.0.0
+plotly>=5.0.0
+
+# Additional utility dependencies
+requests>=2.28.0
+aiohttp>=3.8.0
+asyncio>=3.7.0
