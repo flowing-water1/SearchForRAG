@@ -83,6 +83,68 @@ except ImportError:
 # 日志记录
 logger = get_simple_logger(__name__)
 
+# 事件循环安全执行函数
+def safe_run_async(coro):
+    """
+    安全地运行异步协程，使用nest_asyncio支持嵌套事件循环。
+    
+    Args:
+        coro: 要执行的协程
+        
+    Returns:
+        协程的执行结果
+        
+    Raises:
+        Exception: 如果协程执行过程中出现错误
+    """
+    try:
+        # 尝试导入并应用nest_asyncio来支持嵌套事件循环
+        import nest_asyncio
+        nest_asyncio.apply()
+        logger.info("✅ 已应用nest_asyncio支持嵌套事件循环")
+    except ImportError:
+        logger.warning("⚠️ nest_asyncio未安装，回退到线程池方法")
+        
+        # 回退方案：使用线程池
+        try:
+            # 检查是否已经在事件循环中运行
+            loop = asyncio.get_running_loop()
+            logger.warning("⚠️ 检测到已运行的事件循环，使用线程池执行")
+            
+            import concurrent.futures
+            
+            def run_in_thread():
+                try:
+                    new_loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(new_loop)
+                    try:
+                        result = new_loop.run_until_complete(coro)
+                        logger.info("✅ 线程池中的异步任务执行成功")
+                        return result
+                    finally:
+                        new_loop.close()
+                        asyncio.set_event_loop(None)
+                except Exception as e:
+                    logger.error(f"❌ 线程池中的异步任务执行失败: {e}")
+                    raise
+            
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(run_in_thread)
+                return future.result(timeout=300)
+                
+        except RuntimeError:
+            # 没有运行中的事件循环，可以安全使用asyncio.run
+            logger.info("✅ 创建新的事件循环执行异步任务")
+            return asyncio.run(coro)
+    
+    # 如果成功导入nest_asyncio，直接使用asyncio.run
+    try:
+        logger.info("✅ 使用nest_asyncio支持的asyncio.run执行")
+        return asyncio.run(coro)
+    except Exception as e:
+        logger.error(f"❌ nest_asyncio执行失败: {e}")
+        raise
+
 # 定义支持的节点及其描述
 SUPPORTED_NODES = [
     {"name": "query_analysis", "description": "查询分析节点", "function": "分析用户查询，确定查询类型并选择最佳LightRAG模式"},
@@ -229,7 +291,7 @@ class IntelligentQAWorkflow:
         """
         同步执行查询。
         """
-        return asyncio.run(self.query_async(query_text, config))
+        return safe_run_async(self.query_async(query_text, config))
 
     async def query_async(self, query_text: str, config: Optional[Dict] = None) -> Dict[str, Any]:
         """
@@ -305,7 +367,7 @@ class IntelligentQAWorkflow:
         """
         流式执行查询。
         """
-        return asyncio.run(self.query_stream_async(query_text, config))
+        return safe_run_async(self.query_stream_async(query_text, config))
 
     async def query_stream_async(self, query_text: str, config: Optional[Dict] = None):
         """
@@ -477,31 +539,29 @@ if __name__ == '__main__':
         
         print("-" * 80)
 
-    # 保留原有的单个查询测试
-    print("\n=== 原有测试保持不变 ===")
-    original_test_query = "LangGraph是什么？它和LangChain有什么关系？"
-    
-    # 同步查询测试
-    print("\n--- 同步查询测试 ---")
-    sync_result = query(original_test_query)
-    print(f"答案: {sync_result['answer']}")
-    print(f"来源: {sync_result['sources']}")
-    print(f"路由: {sync_result['route_taken']}")
+    # 合并所有测试到一个异步函数中
+    async def run_all_tests():
+        print("\n=== 原有测试保持不变 ===")
+        original_test_query = "LangGraph是什么？它和LangChain有什么关系？"
+        
+        # 同步查询测试
+        print("\n--- 同步查询测试 ---")
+        sync_result = query(original_test_query)
+        print(f"答案: {sync_result['answer']}")
+        print(f"来源: {sync_result['sources']}")
+        print(f"路由: {sync_result['route_taken']}")
 
-    # 异步查询测试
-    async def main_async():
+        # 异步查询测试
         print("\n--- 异步查询测试 ---")
         async_result = await query_async(original_test_query)
         print(f"答案: {async_result['answer']}")
 
-    asyncio.run(main_async())
-
-    # 流式查询测试
-    print("\n--- 流式查询测试 ---")
-    async def test_stream():
+        # 流式查询测试
+        print("\n--- 流式查询测试 ---")
         workflow = get_workflow()
         async for step in workflow.query_stream_async(original_test_query):
             print(step)
             print("-" * 20)
     
-    asyncio.run(test_stream())
+    # 只执行一次asyncio.run()
+    safe_run_async(run_all_tests())
