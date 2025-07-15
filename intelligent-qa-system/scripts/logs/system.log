@@ -130,3 +130,36 @@
 2025-07-14 15:50:54 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
 2025-07-14 15:50:54 [INFO] __main__:main:137 - 初始化LightRAG系统...
 2025-07-14 15:51:04 [ERROR] __main__:main:140 - LightRAG初始化失败
+2025-07-15 11:40:03 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-15 11:40:03 [INFO] __main__:main:120 - ==================================================
+2025-07-15 11:40:03 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
+2025-07-15 11:40:03 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-15 11:40:10 [INFO] __main__:main:150 - 开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs
+2025-07-15 11:40:39 [INFO] __main__:main:156 - 文档导入统计:
+2025-07-15 11:40:39 [INFO] __main__:main:157 -   - 总文件数: 3
+2025-07-15 11:40:39 [INFO] __main__:main:158 -   - 文件类型: {'markdown': 3}
+2025-07-15 11:40:39 [INFO] __main__:main:159 -   - 总大小: 8,772 字节
+2025-07-15 11:40:39 [INFO] __main__:main:161 - ==================================================
+2025-07-15 11:40:39 [INFO] __main__:main:162 - 🎉 文档导入完成！
+2025-07-15 11:52:47 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-15 11:52:47 [INFO] __main__:main:120 - ==================================================
+2025-07-15 11:52:47 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
+2025-07-15 11:52:47 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-15 11:52:53 [INFO] __main__:main:150 - 开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs
+2025-07-15 11:52:53 [INFO] __main__:main:156 - 文档导入统计:
+2025-07-15 11:52:53 [INFO] __main__:main:157 -   - 总文件数: 3
+2025-07-15 11:52:53 [INFO] __main__:main:158 -   - 文件类型: {'markdown': 3}
+2025-07-15 11:52:53 [INFO] __main__:main:159 -   - 总大小: 8,772 字节
+2025-07-15 11:52:53 [INFO] __main__:main:161 - ==================================================
+2025-07-15 11:52:53 [INFO] __main__:main:162 - 🎉 文档导入完成！
+2025-07-15 11:55:38 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-15 11:55:38 [INFO] __main__:main:120 - ==================================================
+2025-07-15 11:55:38 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
+2025-07-15 11:55:38 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-15 11:55:44 [INFO] __main__:main:150 - 开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs
+2025-07-15 11:56:09 [INFO] __main__:main:156 - 文档导入统计:
+2025-07-15 11:56:09 [INFO] __main__:main:157 -   - 总文件数: 4
+2025-07-15 11:56:09 [INFO] __main__:main:158 -   - 文件类型: {'markdown': 4}
+2025-07-15 11:56:09 [INFO] __main__:main:159 -   - 总大小: 12,918 字节
+2025-07-15 11:56:09 [INFO] __main__:main:161 - ==================================================
+2025-07-15 11:56:09 [INFO] __main__:main:162 - 🎉 文档导入完成！

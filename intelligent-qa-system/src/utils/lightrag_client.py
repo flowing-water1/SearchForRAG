@@ -5,12 +5,12 @@ LightRAG 核心集成模块 (HKUDS/LightRAG)
 
 import os
 import asyncio
-from typing import Optional, Dict, Any, List
+import logging
 from pathlib import Path
+from typing import List, Optional, Dict, Any
 
 from lightrag import LightRAG, QueryParam
-from lightrag.llm.openai import gpt_4o_mini_complete, gpt_4o_complete, openai_embed
-from lightrag.utils import setup_logger
+from lightrag.utils import EmbeddingFunc
 from lightrag.kg.shared_storage import initialize_pipeline_status
 
 from ..core.config import config
@@ -21,35 +21,36 @@ logger = get_simple_logger(__name__)
 
 async def custom_llm_func(prompt: str, **kwargs) -> str:
     """
-    自定义LLM函数，支持不同的base_url和API key
+    自定义LLM函数，专门用于知识图谱构建，使用KG专用配置
     """
     try:
         import openai
         
-        # LightRAG会注入一个hashing_kv参数用于其内部缓存，
-        # 我们需要在这里接收它，但不能将它传递给OpenAI的API
+        # LightRAG会注入一些内部参数，我们需要在这里接收它们，
+        # 但不能将它们传递给OpenAI的API
         kwargs.pop("hashing_kv", None)
         kwargs.pop("history_messages", None)
+        kwargs.pop("keyword_extraction", None)
         
-        # 创建OpenAI客户端，使用LLM专用配置
+        # 创建OpenAI客户端，使用知识图谱专用配置
         client = openai.AsyncOpenAI(
-            api_key=config.LLM_API_KEY,
-            base_url=config.LLM_BASE_URL
+            api_key=config.KG_LLM_API_KEY,
+            base_url=config.KG_LLM_BASE_URL
         )
         
         # 调用LLM API
         response = await client.chat.completions.create(
-            model=config.LLM_MODEL,
+            model=config.KG_LLM_MODEL,
             messages=[{"role": "user", "content": prompt}],
-            temperature=config.LLM_TEMPERATURE,
-            max_tokens=config.LLM_MAX_TOKENS,
+            temperature=config.KG_LLM_TEMPERATURE,
+            max_tokens=config.KG_LLM_MAX_TOKENS,
             **kwargs
         )
         
         return response.choices[0].message.content
         
     except Exception as e:
-        logger.error(f"LLM API 调用失败: {e}")
+        logger.error(f"知识图谱LLM API 调用失败: {e}")
         raise
 
 async def custom_embedding_func(texts: List[str]) -> List[List[float]]:
@@ -150,8 +151,8 @@ class LightRAGClient:
         """记录当前配置信息"""
         logger.info("LightRAG 配置信息:")
         logger.info(f"  - 工作目录: {self._working_dir}")
-        logger.info(f"  - LLM模型: {config.LLM_MODEL}")
-        logger.info(f"  - LLM Base URL: {config.LLM_BASE_URL}")
+        logger.info(f"  - 知识图谱LLM模型: {config.KG_LLM_MODEL}")
+        logger.info(f"  - 知识图谱LLM Base URL: {config.KG_LLM_BASE_URL}")
         logger.info(f"  - 嵌入模型: {config.EMBEDDING_MODEL}")
         logger.info(f"  - 嵌入 Base URL: {config.EMBEDDING_BASE_URL}")
     
@@ -214,9 +215,8 @@ class LightRAGClient:
         try:
             logger.info(f"执行查询: {query[:50]}... (模式: {mode})")
             
-            # 执行查询 - HKUDS/LightRAG 使用 query 方法
-            result = await asyncio.to_thread(
-                self.rag_instance.query,
+            # 执行查询 - 使用 LightRAG 的异步查询方法 aquery
+            result = await self.rag_instance.aquery(
                 query,
                 param=QueryParam(mode=mode, **kwargs)
             )
@@ -263,18 +263,109 @@ class LightRAGClient:
 # 全局 LightRAG 客户端实例
 lightrag_client = LightRAGClient()
 
-# 便捷函数
-async def initialize_lightrag() -> bool:
-    """初始化 LightRAG 客户端"""
-    return await lightrag_client.initialize()
+# 全局LightRAG实例和初始化状态
+_lightrag_instance = None
+_initialization_lock = asyncio.Lock()
+_is_initialized = False
+
+async def initialize_lightrag_once():
+    """
+    全局单次LightRAG初始化函数
+    """
+    global _lightrag_instance, _is_initialized
+    
+    if _is_initialized and _lightrag_instance is not None:
+        return _lightrag_instance
+    
+    async with _initialization_lock:
+        # 双重检查锁定
+        if _is_initialized and _lightrag_instance is not None:
+            return _lightrag_instance
+            
+        try:
+            logger.info("开始LightRAG全局初始化...")
+            
+            # 创建LightRAG实例
+            rag = LightRAG(
+                working_dir=lightrag_client._working_dir,
+                llm_model_func=custom_llm_func,
+                embedding_func=custom_embedding_func,
+                # -- 临时使用文件存储避免数据库兼容性问题 --
+                # kv_storage="PGKVStorage",
+                # vector_storage="PGVectorStorage", 
+                # graph_storage="Neo4JStorage",  # 使用Neo4j作为图存储（注意大小写）
+                # doc_status_storage="PGDocStatusStorage"
+            )
+            
+            # 执行必要的异步初始化
+            await rag.initialize_storages()
+            await initialize_pipeline_status()
+            
+            _lightrag_instance = rag
+            _is_initialized = True
+            
+            logger.info("✅ LightRAG全局初始化成功")
+            return rag
+            
+        except Exception as e:
+            logger.error(f"❌ LightRAG初始化失败: {e}")
+            raise
 
 async def query_lightrag(query: str, mode: str = "hybrid") -> Dict[str, Any]:
-    """查询 LightRAG"""
-    return await lightrag_client.query(query, mode)
+    """
+    异步查询LightRAG - 使用全局初始化的实例
+    """
+    try:
+        # 获取全局初始化的实例
+        rag = await initialize_lightrag_once()
+        
+        logger.info(f"执行查询: {query[:100]}... (模式: {mode})")
+        
+        # 直接使用aquery方法
+        result = await rag.aquery(
+            query, 
+            param=QueryParam(mode=mode)
+        )
+        
+        logger.info("✅ LightRAG查询成功")
+        
+        return {
+            "success": True,
+            "content": result,
+            "mode": mode,
+            "query": query
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ 查询失败: {e}")
+        return {
+            "success": False,
+            "error": str(e),
+            "mode": mode,
+            "query": query
+        }
 
 def query_lightrag_sync(query: str, mode: str = "hybrid") -> Dict[str, Any]:
-    """同步查询 LightRAG"""
-    return asyncio.run(lightrag_client.query(query, mode))
+    """
+    同步查询LightRAG - 内部使用异步实现
+    """
+    try:
+        return asyncio.run(query_lightrag(query, mode))
+    except Exception as e:
+        logger.error(f"❌ 同步查询失败: {e}")
+        return {
+            "success": False,
+            "error": str(e),
+            "mode": mode,
+            "query": query
+        }
+
+def initialize_lightrag():
+    """
+    兼容性函数 - 现在不需要在工作流初始化时调用
+    """
+    logger.info("LightRAG将在首次查询时自动初始化")
+    pass
 
 async def insert_documents_to_lightrag(documents: List[str]) -> bool:
     """向 LightRAG 插入文档"""

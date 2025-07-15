@@ -19,3 +19,314 @@
 2025-07-11 17:06:00 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/data/lightrag
 2025-07-11 17:06:00 [INFO] __main__:main:137 - 初始化LightRAG系统...
 2025-07-11 17:06:17 [ERROR] __main__:main:140 - LightRAG初始化失败
+2025-07-15 11:34:57 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 法国的首都是什么？...
+2025-07-15 11:35:00 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 11:35:00 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 11:35:00 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 11:35:00 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['法国', '首都']
+2025-07-15 11:35:03 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 11:35:07 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (3.99s)
+2025-07-15 11:35:07 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 479 字符
+2025-07-15 11:35:07 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 11:35:07 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 11:35:07 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 比较法国和德国的经济以及它们的历史关系。...
+2025-07-15 11:35:09 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 11:35:09 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: ANALYTICAL
+2025-07-15 11:35:09 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: hybrid
+2025-07-15 11:35:09 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['法国', '德国', '经济', '历史关系']
+2025-07-15 11:35:14 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 11:35:23 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (8.91s)
+2025-07-15 11:35:23 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1350 字符
+2025-07-15 11:35:23 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 11:35:23 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 5
+2025-07-15 11:35:23 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 《黑客帝国》和基努·里维斯之间有什么关系？...
+2025-07-15 11:35:25 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 11:35:25 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 11:35:25 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 11:35:25 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['黑客帝国', '基努·里维斯']
+2025-07-15 11:35:30 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 11:35:39 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (8.45s)
+2025-07-15 11:35:39 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1088 字符
+2025-07-15 11:35:39 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 11:35:39 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 11:35:39 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 谁写了《沙丘》这本书？...
+2025-07-15 11:35:41 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 11:35:41 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 11:35:41 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 11:35:41 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['沙丘', '书', '作者']
+2025-07-15 11:35:44 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 11:35:48 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.58s)
+2025-07-15 11:35:48 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 700 字符
+2025-07-15 11:35:48 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 11:35:48 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:30:57 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:30:59 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:30:59 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:30:59 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:30:59 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:31:01 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:31:06 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.53s)
+2025-07-15 14:31:06 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 762 字符
+2025-07-15 14:31:06 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:31:06 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:31:06 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:31:07 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:31:07 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:31:07 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:31:07 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:31:10 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:31:18 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (7.68s)
+2025-07-15 14:31:18 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1348 字符
+2025-07-15 14:31:18 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:31:18 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:31:18 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 分析AI投资市场的趋势，比较各公司的战略优势...
+2025-07-15 14:31:20 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:31:20 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: ANALYTICAL
+2025-07-15 14:31:20 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: hybrid
+2025-07-15 14:31:20 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI投资市场', '公司战略', '趋势', '战略优势']
+2025-07-15 14:31:23 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:31:38 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (15.53s)
+2025-07-15 14:31:38 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 2650 字符
+2025-07-15 14:31:38 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:31:38 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 5
+2025-07-15 14:31:38 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Databricks的估值是多少？...
+2025-07-15 14:31:40 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:31:40 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:31:40 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:31:40 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Databricks', '估值']
+2025-07-15 14:31:42 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:31:46 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.21s)
+2025-07-15 14:31:46 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 746 字符
+2025-07-15 14:31:46 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:31:46 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:31:46 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 这些AI公司之间存在什么竞争关系？...
+2025-07-15 14:31:48 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:31:48 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:31:48 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:31:48 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI公司']
+2025-07-15 14:31:50 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:32:05 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (14.99s)
+2025-07-15 14:32:05 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 2608 字符
+2025-07-15 14:32:05 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:32:05 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:32:05 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: LangGraph是什么？它和LangChain有什么关系？...
+2025-07-15 14:32:07 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:32:07 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:32:07 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:32:07 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['LangGraph', 'LangChain']
+2025-07-15 14:32:09 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:32:15 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (6.06s)
+2025-07-15 14:32:15 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1284 字符
+2025-07-15 14:32:15 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:32:15 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:32:15 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: LangGraph是什么？它和LangChain有什么关系？...
+2025-07-15 14:32:16 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:32:16 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:32:16 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:32:16 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['LangGraph', 'LangChain']
+2025-07-15 14:32:19 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:32:27 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (8.07s)
+2025-07-15 14:32:27 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1500 字符
+2025-07-15 14:32:27 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:32:27 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:32:27 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: LangGraph是什么？它和LangChain有什么关系？...
+2025-07-15 14:32:29 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:32:29 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:32:29 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:32:29 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['LangGraph', 'LangChain']
+2025-07-15 14:32:33 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:32:45 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (11.57s)
+2025-07-15 14:32:45 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 2175 字符
+2025-07-15 14:32:45 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:32:45 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:39:31 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:39:33 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:39:33 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:39:33 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:39:33 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:39:35 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:39:39 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.20s)
+2025-07-15 14:39:39 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 695 字符
+2025-07-15 14:39:39 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:39:39 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:39:39 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:39:41 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:39:41 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:39:41 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:39:41 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:39:43 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:39:52 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (9.17s)
+2025-07-15 14:39:52 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1483 字符
+2025-07-15 14:39:52 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:39:52 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:39:52 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 分析AI投资市场的趋势，比较各公司的战略优势...
+2025-07-15 14:39:54 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:39:54 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: ANALYTICAL
+2025-07-15 14:39:54 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: hybrid
+2025-07-15 14:39:54 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI投资市场', '公司战略', '趋势', '战略优势']
+2025-07-15 14:39:57 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:40:12 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (14.77s)
+2025-07-15 14:40:12 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1984 字符
+2025-07-15 14:40:12 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:40:12 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 5
+2025-07-15 14:40:12 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Databricks的估值是多少？...
+2025-07-15 14:40:13 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:40:13 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:40:13 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:40:13 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Databricks', '估值']
+2025-07-15 14:40:15 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:40:20 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (5.24s)
+2025-07-15 14:40:20 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 812 字符
+2025-07-15 14:40:20 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:40:20 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:40:20 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 这些AI公司之间存在什么竞争关系？...
+2025-07-15 14:40:22 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:40:22 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:40:22 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:40:22 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI公司']
+2025-07-15 14:40:26 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:40:37 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (11.05s)
+2025-07-15 14:40:37 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 2145 字符
+2025-07-15 14:40:37 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:40:37 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:40:37 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: LangGraph是什么？它和LangChain有什么关系？...
+2025-07-15 14:40:39 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:40:39 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:40:39 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:40:39 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['LangGraph', 'LangChain']
+2025-07-15 14:40:41 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:40:51 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (9.84s)
+2025-07-15 14:40:51 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 2329 字符
+2025-07-15 14:40:51 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:40:51 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:40:51 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: LangGraph是什么？它和LangChain有什么关系？...
+2025-07-15 14:40:52 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:40:52 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:40:52 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:40:52 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['LangGraph', 'LangChain']
+2025-07-15 14:40:54 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:41:07 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (13.03s)
+2025-07-15 14:41:07 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1596 字符
+2025-07-15 14:41:07 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:41:07 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:41:07 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: LangGraph是什么？它和LangChain有什么关系？...
+2025-07-15 14:41:09 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:41:09 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:41:09 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:41:09 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['LangGraph', 'LangChain']
+2025-07-15 14:41:12 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:41:22 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (10.01s)
+2025-07-15 14:41:22 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1773 字符
+2025-07-15 14:41:22 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:41:22 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:43:00 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:43:02 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:43:02 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:43:02 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:43:02 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:43:15 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:43:20 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.90s)
+2025-07-15 14:43:20 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1018 字符
+2025-07-15 14:43:20 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:43:20 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:43:20 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:43:22 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:43:22 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:43:22 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:43:22 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:43:24 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:43:34 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (10.03s)
+2025-07-15 14:43:34 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1367 字符
+2025-07-15 14:43:34 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:43:34 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:43:34 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 分析AI投资市场的趋势，比较各公司的战略优势...
+2025-07-15 14:43:35 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:43:35 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: ANALYTICAL
+2025-07-15 14:43:35 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: hybrid
+2025-07-15 14:43:35 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI投资市场', '公司', '战略优势']
+2025-07-15 14:43:40 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:43:54 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (14.34s)
+2025-07-15 14:43:54 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1797 字符
+2025-07-15 14:43:54 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:43:54 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 5
+2025-07-15 14:46:12 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:46:14 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:46:14 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:46:14 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:46:14 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:46:23 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:46:32 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (9.68s)
+2025-07-15 14:46:32 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 773 字符
+2025-07-15 14:46:32 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:46:32 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:46:32 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:46:34 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:46:34 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:46:34 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:46:34 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:46:37 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:47:10 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:47:12 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:47:12 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:47:12 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:47:12 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:47:21 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:47:26 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (5.60s)
+2025-07-15 14:47:26 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 746 字符
+2025-07-15 14:47:26 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:47:26 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:47:26 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:47:28 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:47:28 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:47:28 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:47:28 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:48:06 [ERROR] asyncio:default_exception_handler:1785 - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-116' coro=<IntelligentQAWorkflow.query_async() done, defined at /home/low_ater/SearchForRAG/intelligent-qa-system/src/core/enhanced_workflow.py:234> wait_for=<Task cancelling name='Task-120' coro=<RunnableCallable.ainvoke() running at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/site-packages/langgraph/utils/runnable.py:440> wait_for=<Future cancelled> cb=[Task.task_wakeup(), gather.<locals>._done_callback() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:764]> cb=[gather.<locals>._done_callback() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:764]>
+2025-07-15 14:48:06 [ERROR] asyncio:default_exception_handler:1785 - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-120' coro=<RunnableCallable.ainvoke() running at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/site-packages/langgraph/utils/runnable.py:440> wait_for=<Future cancelled> cb=[Task.task_wakeup(), gather.<locals>._done_callback() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:764]>
+2025-07-15 14:48:19 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:48:21 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:48:21 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:48:21 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:48:21 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:48:29 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:48:34 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.33s)
+2025-07-15 14:48:34 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 645 字符
+2025-07-15 14:48:34 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:48:34 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:48:34 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:48:35 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:48:35 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:48:35 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:48:35 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:48:38 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:56:29 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:56:31 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:56:31 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:56:31 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:56:31 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-15 14:56:41 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:56:46 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (5.22s)
+2025-07-15 14:56:46 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 732 字符
+2025-07-15 14:56:46 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:56:46 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 3
+2025-07-15 14:56:46 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-15 14:56:48 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:56:48 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-15 14:56:48 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-15 14:56:48 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-15 14:56:51 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-15 14:57:03 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (12.50s)
+2025-07-15 14:57:03 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1444 字符
+2025-07-15 14:57:03 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.25
+2025-07-15 14:57:03 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-15 14:57:03 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 分析AI投资市场的趋势，比较各公司的战略优势...
+2025-07-15 14:57:05 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:57:05 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: ANALYTICAL
+2025-07-15 14:57:05 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: hybrid
+2025-07-15 14:57:05 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI投资市场', '公司', '战略优势']
+2025-07-15 14:57:55 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']

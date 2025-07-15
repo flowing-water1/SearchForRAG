@@ -57,8 +57,8 @@ class Config:
     OPENAI_MODEL = os.getenv("OPENAI_MODEL") or os.getenv("LLM_MODEL", "gpt-4")
     
     # LLM配置
-    LLM_TEMPERATURE = 0.1
-    LLM_MAX_TOKENS = 2000
+    LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
+    LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "2000"))
     
     # PostgreSQL数据库配置（从.env读取连接信息）
     POSTGRES_HOST = os.getenv("POSTGRES_HOST", "117.72.54.192")

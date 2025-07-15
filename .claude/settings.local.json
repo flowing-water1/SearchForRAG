@@ -60,7 +60,10 @@
       "Bash(dpkg:*)",
       "Bash(cat:*)",
       "Bash(pip show:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(source ~/SearchForRAG/bin/activate)",
+      "Bash(python /home/low_ater/SearchForRAG/intelligent-qa-system/src/core/enhanced_workflow.py)",
+      "Bash(find /home/low_ater -name \"SearchForRAG\" -type d)"
     ],
     "deny": []
   }
