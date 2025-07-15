@@ -6,3 +6,4 @@
 {"timestamp": "2025-07-11T16:43:40.423621", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
 {"timestamp": "2025-07-11T16:49:17.012559", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}
 {"timestamp": "2025-07-11T16:52:08.821341", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-14T15:51:04.662230", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}

@@ -125,3 +125,8 @@
 {"timestamp": "2025-07-11T16:52:08.536041", "level": "INFO", "logger": "__main__", "message": "初始化LightRAG系统...", "module": "ingest_documents", "function": "main", "line": 137}
 {"timestamp": "2025-07-11T16:52:08.818305", "level": "INFO", "logger": "__main__", "message": "开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs", "module": "ingest_documents", "function": "main", "line": 150}
 {"timestamp": "2025-07-11T16:52:08.821341", "level": "ERROR", "logger": "__main__", "message": "❌ 文档导入失败", "module": "ingest_documents", "function": "main", "line": 165}
+{"timestamp": "2025-07-14T15:50:54.576533", "level": "INFO", "logger": "__main__", "message": "🚀 开始文档导入流程...", "module": "ingest_documents", "function": "main", "line": 119}
+{"timestamp": "2025-07-14T15:50:54.576941", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 120}
+{"timestamp": "2025-07-14T15:50:54.577152", "level": "INFO", "logger": "__main__", "message": "RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag", "module": "ingest_documents", "function": "main", "line": 133}
+{"timestamp": "2025-07-14T15:50:54.577286", "level": "INFO", "logger": "__main__", "message": "初始化LightRAG系统...", "module": "ingest_documents", "function": "main", "line": 137}
+{"timestamp": "2025-07-14T15:51:04.662230", "level": "ERROR", "logger": "__main__", "message": "LightRAG初始化失败", "module": "ingest_documents", "function": "main", "line": 140}

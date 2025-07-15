@@ -11,6 +11,7 @@ from pathlib import Path
 from lightrag import LightRAG, QueryParam
 from lightrag.llm.openai import gpt_4o_mini_complete, gpt_4o_complete, openai_embed
 from lightrag.utils import setup_logger
+from lightrag.kg.shared_storage import initialize_pipeline_status
 
 from ..core.config import config
 from .simple_logger import get_simple_logger
@@ -29,7 +30,7 @@ async def custom_llm_func(prompt: str, **kwargs) -> str:
         # 我们需要在这里接收它，但不能将它传递给OpenAI的API
         kwargs.pop("hashing_kv", None)
         kwargs.pop("history_messages", None)
-
+        
         # 创建OpenAI客户端，使用LLM专用配置
         client = openai.AsyncOpenAI(
             api_key=config.LLM_API_KEY,
@@ -108,21 +109,30 @@ class LightRAGClient:
             # 确保存储目录存在
             config.RAG_STORAGE_DIR.mkdir(parents=True, exist_ok=True)
             
+            # 设置Neo4j环境变量（LightRAG会从环境变量读取）
+            os.environ["NEO4J_URI"] = config.NEO4J_URI
+            os.environ["NEO4J_USERNAME"] = config.NEO4J_USERNAME
+            os.environ["NEO4J_PASSWORD"] = config.NEO4J_PASSWORD
+            
             # 创建 LightRAG 实例
             self.rag_instance = LightRAG(
                 working_dir=self._working_dir,
                 llm_model_func=custom_llm_func,
                 embedding_func=custom_embedding_func,
-                # -- 显式指定使用PostgreSQL作为存储后端 --
+                # -- 混合存储方案：Neo4j图存储 + PostgreSQL其他存储 --
                 kv_storage="PGKVStorage",
-                vector_storage="PGVectorStorage",
-                graph_storage="PGGraphStorage",
-                doc_status_storage="PGDocStatusStorage",
+                vector_storage="PGVectorStorage", 
+                graph_storage="Neo4JStorage",  # 使用Neo4j作为图存储（注意大小写）
+                doc_status_storage="PGDocStatusStorage"
             )
             
             # 确保所有存储实例被正确初始化
             logger.info("正在初始化存储实例...")
             await self.rag_instance.initialize_storages()
+            
+            # 初始化pipeline状态（必须在存储初始化后）
+            logger.info("正在初始化Pipeline状态...")
+            await initialize_pipeline_status()
             
             self._initialized = True
             logger.info("✅ LightRAG 初始化完成")

@@ -21,6 +21,7 @@ class Config:
     SYSTEM_NAME = "智能问答系统"
     VERSION = "1.0.0"
     DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+    DEBUG_MODE = os.getenv("DEBUG_MODE", "false").lower() == "true"  # 添加DEBUG_MODE
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
     
     # LLM API配置（用于对话和推理）
@@ -62,7 +63,7 @@ class Config:
     # PostgreSQL数据库配置（从.env读取连接信息）
     POSTGRES_HOST = os.getenv("POSTGRES_HOST", "117.72.54.192")
     POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", "5432"))
-    POSTGRES_DB = os.getenv("POSTGRES_DB", "searchforrag") 
+    POSTGRES_DB = os.getenv("POSTGRES_DATABASE", "searchforrag")  # 修复环境变量名
     POSTGRES_USER = os.getenv("POSTGRES_USER", "searchforrag")
     POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "searchforrag")
     POSTGRES_SSL_MODE = os.getenv("POSTGRES_SSL_MODE", "prefer")

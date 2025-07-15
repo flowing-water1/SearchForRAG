@@ -5,26 +5,60 @@
 import asyncio
 import time
 import uuid
+import sys
+import os
+from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
 from langgraph.checkpoint.memory import MemorySaver
 
-from .state import AgentState
-from .config import config
-from ..agents.query_analysis import query_analysis_node
-from ..agents.lightrag_retrieval import lightrag_retrieval_node
-from ..agents.quality_assessment import quality_assessment_node
-from ..agents.web_search import web_search_node
-from ..agents.answer_generation import answer_generation_node
-from ..utils.advanced_logging import (
-    setup_logger, get_performance_logger, audit_log, 
-    performance_context, record_metric
-)
-from ..utils.error_handling import (
-    handle_errors, retry_on_failure, ErrorContext,
-    SystemError, ConfigurationError, ErrorSeverity, ErrorCategory
-)
+# 解决相对导入问题
+if __name__ == "__main__":
+    # 添加项目根目录到Python路径
+    current_dir = Path(__file__).parent
+    project_root = current_dir.parent.parent
+    sys.path.insert(0, str(project_root))
+    
+    # 使用绝对导入
+    from src.core.state import AgentState
+    from src.core.config import config
+    from src.agents.query_analysis import query_analysis_node
+    from src.agents.strategy_route import strategy_route_node
+    from src.agents.local_search import local_search_node
+    from src.agents.global_search import global_search_node
+    from src.agents.hybrid_search import hybrid_search_node
+    from src.agents.quality_assessment import quality_assessment_node
+    from src.agents.web_search import web_search_node
+    from src.agents.answer_generation import answer_generation_node
+    from src.utils.advanced_logging import (
+        setup_logger, get_performance_logger, audit_log, 
+        performance_context, record_metric
+    )
+    from src.utils.error_handling import (
+        handle_errors, retry_on_failure, ErrorContext,
+        SystemError, ConfigurationError, ErrorSeverity, ErrorCategory
+    )
+else:
+    # 正常的相对导入
+    from .state import AgentState
+    from .config import config
+    from ..agents.query_analysis import query_analysis_node
+    from ..agents.strategy_route import strategy_route_node
+    from ..agents.local_search import local_search_node
+    from ..agents.global_search import global_search_node
+    from ..agents.hybrid_search import hybrid_search_node
+    from ..agents.quality_assessment import quality_assessment_node
+    from ..agents.web_search import web_search_node
+    from ..agents.answer_generation import answer_generation_node
+    from ..utils.advanced_logging import (
+        setup_logger, get_performance_logger, audit_log, 
+        performance_context, record_metric
+    )
+    from ..utils.error_handling import (
+        handle_errors, retry_on_failure, ErrorContext,
+        SystemError, ConfigurationError, ErrorSeverity, ErrorCategory
+    )
 
 logger = setup_logger(__name__)
 perf_logger = get_performance_logger(__name__)
@@ -101,7 +135,10 @@ class EnhancedIntelligentQAWorkflow:
         # 使用装饰器包装节点以增加错误处理
         wrapped_nodes = {
             "query_analysis": self._wrap_node(query_analysis_node, "query_analysis"),
-            "lightrag_retrieval": self._wrap_node(lightrag_retrieval_node, "lightrag_retrieval"),
+            "strategy_route": self._wrap_node(strategy_route_node, "strategy_route"),
+            "local_search": self._wrap_node(local_search_node, "local_search"),
+            "global_search": self._wrap_node(global_search_node, "global_search"),
+            "hybrid_search": self._wrap_node(hybrid_search_node, "hybrid_search"),
             "quality_assessment": self._wrap_node(quality_assessment_node, "quality_assessment"),
             "web_search": self._wrap_node(web_search_node, "web_search"),
             "answer_generation": self._wrap_node(answer_generation_node, "answer_generation")
@@ -224,16 +261,29 @@ class EnhancedIntelligentQAWorkflow:
     
     def _add_edges(self):
         """添加边和条件路由"""
-        logger.info("配置工作流路由...")
+        logger.info("配置智能检索工作流路由...")
         
         # 设置入口点
         self.graph.set_entry_point("query_analysis")
         
-        # 查询分析 → LightRAG 检索
-        self.graph.add_edge("query_analysis", "lightrag_retrieval")
+        # 查询分析 → 策略路由
+        self.graph.add_edge("query_analysis", "strategy_route")
         
-        # LightRAG 检索 → 质量评估
-        self.graph.add_edge("lightrag_retrieval", "quality_assessment")
+        # 策略路由 → 条件路由到三个检索节点
+        self.graph.add_conditional_edges(
+            "strategy_route",
+            self._route_to_search_node,
+            {
+                "local_search": "local_search",
+                "global_search": "global_search", 
+                "hybrid_search": "hybrid_search"
+            }
+        )
+        
+        # 三个检索节点 → 质量评估
+        self.graph.add_edge("local_search", "quality_assessment")
+        self.graph.add_edge("global_search", "quality_assessment")
+        self.graph.add_edge("hybrid_search", "quality_assessment")
         
         # 质量评估 → 条件路由 (网络搜索 或 答案生成)
         self.graph.add_conditional_edges(
@@ -251,7 +301,55 @@ class EnhancedIntelligentQAWorkflow:
         # 答案生成 → 结束
         self.graph.add_edge("answer_generation", END)
         
-        logger.info("工作流路由配置完成")
+        logger.info("智能检索工作流路由配置完成")
+    
+    def _route_to_search_node(self, state: AgentState) -> str:
+        """
+        决定使用哪个检索节点
+        
+        根据策略路由节点的决策结果，将查询路由到相应的检索节点：
+        - local模式 → local_search
+        - global模式 → global_search  
+        - hybrid模式 → hybrid_search
+        
+        Args:
+            state: 当前状态
+            
+        Returns:
+            目标检索节点名称
+        """
+        try:
+            lightrag_mode = state.get("lightrag_mode", "hybrid")
+            query_type = state.get("query_type", "ANALYTICAL")
+            
+            logger.debug(f"策略路由决策: 查询类型={query_type}, 检索模式={lightrag_mode}")
+            
+            # 路由映射
+            route_mapping = {
+                "local": "local_search",
+                "global": "global_search",
+                "hybrid": "hybrid_search",
+                "naive": "local_search",    # 降级到local
+                "mix": "hybrid_search"      # 降级到hybrid
+            }
+            
+            target_node = route_mapping.get(lightrag_mode, "hybrid_search")
+            
+            logger.info(f"🔀 策略路由: {query_type} → {lightrag_mode} → {target_node}")
+            
+            # 记录路由决策指标
+            record_metric("strategy_route_decision", 1, 
+                         query_type=query_type, 
+                         lightrag_mode=lightrag_mode,
+                         target_node=target_node)
+            
+            return target_node
+            
+        except Exception as e:
+            logger.error(f"策略路由决策失败: {e}")
+            # 默认到混合检索
+            logger.warning("使用默认的混合检索节点")
+            return "hybrid_search"
     
     def _should_use_web_search(self, state: AgentState) -> str:
         """
@@ -300,6 +398,9 @@ class EnhancedIntelligentQAWorkflow:
             
             logger.info("✅ 工作流编译成功")
             
+            # 编译成功后生成可视化图片
+            self._generate_visualization()
+            
         except Exception as e:
             logger.error(f"❌ 工作流编译失败: {e}")
             raise ConfigurationError(
@@ -307,6 +408,24 @@ class EnhancedIntelligentQAWorkflow:
                 error_code="WORKFLOW_COMPILE_FAILED",
                 severity=ErrorSeverity.CRITICAL
             )
+    
+    def _generate_visualization(self):
+        """生成工作流可视化图片"""
+        try:
+            if self.compiled_graph:
+                logger.info("生成工作流可视化图片...")
+                
+                # 生成PNG图像
+                png_data = self.compiled_graph.get_graph().draw_mermaid_png()
+                output_file = "graph.png"
+                
+                with open(output_file, "wb") as f:
+                    f.write(png_data)
+                
+                logger.info(f"✅ 工作流可视化图片已保存: {output_file}")
+                
+        except Exception as e:
+            logger.warning(f"⚠️ 生成可视化图片失败 (不影响工作流功能): {e}")
     
     @handle_errors(reraise=True)
     @retry_on_failure(max_retries=2, backoff_factor=1.0)
@@ -708,3 +827,40 @@ def reset_performance_stats():
     """重置性能统计"""
     workflow = get_workflow()
     workflow.reset_performance_stats()
+
+
+if __name__ == "__main__":
+    """
+    运行此文件生成LangGraph编译可视化图
+    """
+    print("🔧 生成LangGraph工作流可视化图")
+    print("=" * 50)
+    
+    try:
+        # 获取工作流实例 (这会自动编译并生成graph.png)
+        print("正在创建工作流实例...")
+        workflow = get_workflow()
+        
+        # 显示基本信息
+        info = workflow.get_workflow_info()
+        print(f"✅ 工作流编译成功")
+        print(f"📊 工作流ID: {info['workflow_id']}")
+        print(f"📊 版本: {info['version']}")
+        print(f"📊 节点数量: {len(info['nodes'])}")
+        
+        # 检查生成的图片文件
+        import os
+        graph_file = "graph.png"
+        if os.path.exists(graph_file):
+            print(f"✅ 可视化图片已生成: {graph_file}")
+            print(f"📊 文件大小: {os.path.getsize(graph_file)} bytes")
+            print(f"📁 文件路径: {os.path.abspath(graph_file)}")
+        else:
+            print("⚠️ 图片文件未找到，可能生成失败")
+        
+        print("\n🎉 LangGraph可视化图生成完成！")
+        
+    except Exception as e:
+        print(f"❌ 错误: {e}")
+        import traceback
+        traceback.print_exc()
