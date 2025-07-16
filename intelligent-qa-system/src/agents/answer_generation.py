@@ -136,9 +136,15 @@ def _format_web_results(web_results: List[Dict[str, Any]]) -> str:
     Returns:
         格式化后的网络搜索内容
     """
+    if not web_results or not isinstance(web_results, list):
+        return "无有效的网络搜索结果"
+    
     formatted_results = []
     
     for i, result in enumerate(web_results[:3], 1):  # 只使用前3个结果
+        if not result or not isinstance(result, dict):
+            continue
+            
         title = result.get("title", "未知标题")
         content = result.get("content", "")
         url = result.get("url", "")
@@ -155,7 +161,7 @@ def _format_web_results(web_results: List[Dict[str, Any]]) -> str:
             formatted_results.append(f"   来源: {url}")
         formatted_results.append("")  # 空行分隔
     
-    return "\n".join(formatted_results)
+    return "\n".join(formatted_results) if formatted_results else "无有效的网络搜索结果"
 
 def _build_answer_prompt(state: AgentState, context_info: Dict[str, Any]) -> str:
     """
@@ -347,17 +353,19 @@ def _organize_sources(context_info: Dict[str, Any]) -> List[Dict[str, Any]]:
             "query": lightrag_info.get("query", "")
         })
     
-    # 添加网络搜索来源
+    # 添加网络搜索来源 - 确保web_info不为None
     web_info = context_info.get("web_info", [])
-    for result in web_info:
-        sources.append({
-            "type": "web_search",
-            "title": result.get("title", ""),
-            "url": result.get("url", ""),
-            "domain": result.get("domain", ""),
-            "score": result.get("score", 0.0),
-            "snippet": result.get("snippet", "")
-        })
+    if web_info is not None and isinstance(web_info, list):
+        for result in web_info:
+            if result and isinstance(result, dict):  # 确保result不为None且是字典
+                sources.append({
+                    "type": "web_search",
+                    "title": result.get("title", ""),
+                    "url": result.get("url", ""),
+                    "domain": result.get("domain", ""),
+                    "score": result.get("score", 0.0),
+                    "snippet": result.get("snippet", "")
+                })
     
     return sources
 

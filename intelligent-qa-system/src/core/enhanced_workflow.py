@@ -552,12 +552,18 @@ class IntelligentQAWorkflow:
             print(f"Chunk内容: {chunk}")
             print("-" * 60)
             
-            # 安全解析调试chunk
+            # 安全解析调试chunk - 应用节点过滤机制
             try:
                 if isinstance(chunk, dict):
-                    # 处理字典类型的chunk
-                    for node_name, node_data in chunk.items():
-                        if node_name not in ["__start__", "__end__", "step"]:
+                    # 处理LangGraph debug格式的复杂chunk结构
+                    if "payload" in chunk and isinstance(chunk["payload"], dict):
+                        # 提取payload中的实际节点数据
+                        payload = chunk["payload"]
+                        node_name = payload.get("name", "unknown_node")
+                        node_data = payload.get("input", {}) or payload.get("output", {})
+                        
+                        # 确保这是一个有效的工作流节点
+                        if self._is_valid_workflow_node(node_name):
                             print(f"🎯 处理节点: '{node_name}'")
                             
                             # 提取关键状态信息
@@ -578,8 +584,37 @@ class IntelligentQAWorkflow:
                                 step_info["output_state"] = dict(node_data)
                                 
                                 debug_info["execution_steps"].append(step_info)
+                        else:
+                            print(f"   ⏭️ 跳过元数据节点: '{node_name}'")
+                    else:
+                        # 处理简单格式的chunk
+                        for node_name, node_data in chunk.items():
+                            # 过滤掉元数据字段和非工作流节点
+                            if self._is_valid_workflow_node(node_name):
+                                print(f"🎯 处理节点: '{node_name}'")
+                                
+                                # 提取关键状态信息
+                                step_info = {
+                                    "step": step_count,
+                                    "node": node_name,
+                                    "input_state": {},
+                                    "output_state": {},
+                                    "key_metrics": {}
+                                }
+
+                                # 安全获取节点数据
+                                if isinstance(node_data, dict):
+                                    self._analyze_node_data(node_name, node_data, step_info)
+                                    
+                                    # 记录状态变化
+                                    step_info["input_state"] = dict(node_data)
+                                    step_info["output_state"] = dict(node_data)
+                                    
+                                    debug_info["execution_steps"].append(step_info)
+                                else:
+                                    print(f"   ⚠️ 节点数据格式异常: {type(node_data)}")
                             else:
-                                print(f"   ⚠️ 节点数据格式异常: {type(node_data)}")
+                                print(f"   ⏭️ 跳过元数据字段: '{node_name}'")
                                 
                 elif hasattr(chunk, '__iter__') and not isinstance(chunk, (str, bytes)):
                     # 处理其他可迭代类型
@@ -787,8 +822,15 @@ class IntelligentQAWorkflow:
         """处理debug模式的chunk数据"""
         try:
             if isinstance(chunk, dict):
-                for node_name, node_data in chunk.items():
-                    if node_name not in ["__start__", "__end__", "step"]:
+                # 处理LangGraph debug格式的复杂chunk结构
+                if "payload" in chunk and isinstance(chunk["payload"], dict):
+                    # 提取payload中的实际节点数据
+                    payload = chunk["payload"]
+                    node_name = payload.get("name", "unknown_node")
+                    node_data = payload.get("input", {}) or payload.get("output", {})
+                    
+                    # 确保这是一个有效的工作流节点
+                    if self._is_valid_workflow_node(node_name):
                         step_info = {
                             "step": step_count,
                             "node": node_name,
@@ -802,8 +844,51 @@ class IntelligentQAWorkflow:
                             self._analyze_node_data(node_name, node_data, step_info)
                             
                         debug_info["execution_steps"].append(step_info)
+                else:
+                    # 处理简单格式的chunk
+                    for node_name, node_data in chunk.items():
+                        # 过滤掉元数据字段和非工作流节点
+                        if self._is_valid_workflow_node(node_name):
+                            step_info = {
+                                "step": step_count,
+                                "node": node_name,
+                                "mode": "debug",
+                                "data": node_data,
+                                "timestamp": time.time()
+                            }
+                            
+                            # 分析节点数据
+                            if isinstance(node_data, dict):
+                                self._analyze_node_data(node_name, node_data, step_info)
+                                
+                            debug_info["execution_steps"].append(step_info)
         except Exception as e:
             print(f"   ❌ 处理debug chunk失败: {e}")
+
+    def _is_valid_workflow_node(self, node_name: str) -> bool:
+        """
+        检查是否为有效的工作流节点
+        
+        Args:
+            node_name: 节点名称
+            
+        Returns:
+            是否为有效的工作流节点
+        """
+        # 定义有效的工作流节点名称
+        valid_nodes = {
+            "query_analysis", "strategy_route", 
+            "local_search", "global_search", "hybrid_search",
+            "quality_assessment", "web_search", "answer_generation"
+        }
+        
+        # 过滤掉元数据字段和系统字段
+        metadata_fields = {
+            "__start__", "__end__", "step", "timestamp", "type", "payload",
+            "id", "name", "input", "output", "triggers", "metadata"
+        }
+        
+        return node_name in valid_nodes and node_name not in metadata_fields
 
     def _process_updates_chunk(self, chunk: Any, debug_info: Dict, step_count: int):
         """处理updates模式的chunk数据"""
@@ -1262,59 +1347,69 @@ if __name__ == '__main__':
         
         print("-" * 80)
 
-    # 合并所有测试到一个异步函数中
-    async def run_all_tests():
-        print("\n=== 原有测试保持不变 ===")
-        original_test_query = "LangGraph是什么？它和LangChain有什么关系？"
+    def run_comprehensive_tests():
+        """运行综合测试，避免重复执行"""
+        print("\n" + "=" * 100)
+        print("🚀 开始智能问答工作流综合测试")
+        print("=" * 100)
         
-        # 同步查询测试
-        print("\n--- 同步查询测试 ---")
-        sync_result = query(original_test_query)
-        print(f"答案: {sync_result['answer']}")
-        print(f"来源: {sync_result['sources']}")
-        print(f"路由: {sync_result['route_taken']}")
+        # 多策略检索测试已在上面执行
+        
+        # 异步功能测试
+        async def run_additional_tests():
+            print("\n=== 异步功能测试 ===")
+            original_test_query = "LangGraph是什么？它和LangChain有什么关系？"
+            
+            # 异步查询测试
+            print("\n--- 异步查询测试 ---")
+            async_result = await query_async(original_test_query)
+            print(f"答案摘要: {async_result.get('answer', 'N/A')[:100]}...")
+            print(f"执行时间: {async_result.get('execution_time', 0):.2f}s")
 
-        # 异步查询测试
-        print("\n--- 异步查询测试 ---")
-        async_result = await query_async(original_test_query)
-        print(f"答案: {async_result['answer']}")
-
-        # 流式查询测试
-        print("\n--- 流式查询测试 ---")
-        workflow = get_workflow()
-        async for step in workflow.query_stream_async(original_test_query):
-            print(step)
-            print("-" * 20)
-    
-    # 只执行一次asyncio.run()
-    safe_run_async(run_all_tests())
-    
-    print("\n" + "=" * 100)
-    print("🔍 调试模式测试")
-    print("=" * 100)
-    print("使用debug模式查看详细的执行过程，诊断检索质量问题...")
-    
-    # 选择一个典型的低置信度查询进行详细分析
-    debug_test_query = "OpenAI在2024年筹集了多少资金？"
-    print(f"\n📋 调试查询: {debug_test_query}")
-    print("这个查询之前显示置信度较低，让我们看看详细的执行过程...")
-    
-    try:
-        print("\n🚀 开始Debug模式执行...")
-        debug_result = debug_query(debug_test_query)
+            # 流式查询测试（简化版）
+            print("\n--- 流式查询测试 ---")
+            workflow = get_workflow()
+            step_count = 0
+            async for step in workflow.query_stream_async(original_test_query):
+                step_count += 1
+                if step_count <= 3:  # 只显示前3个步骤避免过多输出
+                    print(f"步骤 {step_count}: {type(step).__name__}")
+                elif step_count == 4:
+                    print("... (省略其余步骤)")
+                    break
         
-        print("\n📈 调试分析完成!")
-        print("如果您看到任何质量问题，可以：")
-        print("1. 检查LightRAG数据是否充分")
-        print("2. 调整quality_assessment的评分阈值")
-        print("3. 改进检索策略或提示词")
+        # 执行异步测试
+        safe_run_async(run_additional_tests())
         
-    except Exception as e:
-        print(f"❌ 调试执行失败: {e}")
-        print("这可能是因为LightRAG未正确初始化或数据有问题")
+        print("\n" + "=" * 100)
+        print("🔍 调试模式测试")
+        print("=" * 100)
+        print("使用debug模式查看详细的执行过程，诊断检索质量问题...")
+        
+        # 选择一个典型的低置信度查询进行详细分析
+        debug_test_query = "OpenAI在2024年筹集了多少资金？"
+        print(f"\n📋 调试查询: {debug_test_query}")
+        print("这个查询之前显示置信度较低，让我们看看详细的执行过程...")
+        
+        try:
+            print("\n🚀 开始Debug模式执行...")
+            debug_result = debug_query(debug_test_query)
+            
+            print("\n📈 调试分析完成!")
+            print("如果您看到任何质量问题，可以：")
+            print("1. 检查LightRAG数据是否充分")
+            print("2. 调整quality_assessment的评分阈值")
+            print("3. 改进检索策略或提示词")
+            
+        except Exception as e:
+            print(f"❌ 调试执行失败: {e}")
+            print("这可能是因为LightRAG未正确初始化或数据有问题")
+        
+        print("\n💡 提示：在日常使用中，您可以通过以下方式启用调试:")
+        print("- query('你的问题', debug=True)")  
+        print("- debug_query('你的问题')")
+        print("- workflow.debug_query('你的问题')")
+        print("\n调试模式会显示每个节点的详细执行信息，帮助您诊断和改进系统性能。")
     
-    print("\n💡 提示：在日常使用中，您可以通过以下方式启用调试:")
-    print("- query('你的问题', debug=True)")  
-    print("- debug_query('你的问题')")
-    print("- workflow.debug_query('你的问题')")
-    print("\n调试模式会显示每个节点的详细执行信息，帮助您诊断和改进系统性能。")
+    # 运行综合测试
+    run_comprehensive_tests()

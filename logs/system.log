@@ -330,3 +330,73 @@ task: <Task cancelling name='Task-120' coro=<RunnableCallable.ainvoke() running 
 2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
 2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
 2025-07-15 14:57:57 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-16 14:26:30 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: OpenAI在2024年筹集了多少资金？...
+2025-07-16 14:26:32 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:26:32 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-16 14:26:32 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-16 14:26:32 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['OpenAI', '2024年', '资金筹集']
+2025-07-16 14:26:42 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:26:48 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (6.16s)
+2025-07-16 14:26:48 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 662 字符
+2025-07-16 14:26:48 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.62
+2025-07-16 14:26:48 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-16 14:26:48 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon对Anthropic总共投资了多少钱？...
+2025-07-16 14:26:50 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:26:50 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-16 14:26:50 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-16 14:26:50 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic', '投资金额']
+2025-07-16 14:26:53 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:26:57 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (4.69s)
+2025-07-16 14:26:57 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1072 字符
+2025-07-16 14:26:57 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.75
+2025-07-16 14:26:57 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-16 14:26:57 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Amazon和Anthropic的合作关系是什么？...
+2025-07-16 14:26:59 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:26:59 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: RELATIONAL
+2025-07-16 14:26:59 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: global
+2025-07-16 14:26:59 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Amazon', 'Anthropic']
+2025-07-16 14:26:59 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:27:07 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (8.39s)
+2025-07-16 14:27:07 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1095 字符
+2025-07-16 14:27:07 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.84
+2025-07-16 14:27:07 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 1
+2025-07-16 14:27:07 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: Databricks的最新估值是多少？...
+2025-07-16 14:27:09 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:27:09 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-16 14:27:09 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-16 14:27:09 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['Databricks', '估值']
+2025-07-16 14:27:17 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:27:22 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (5.49s)
+2025-07-16 14:27:22 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 686 字符
+2025-07-16 14:27:22 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.82
+2025-07-16 14:27:22 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-16 14:27:22 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 分析这些AI公司的融资情况和投资关系...
+2025-07-16 14:27:25 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:27:25 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: ANALYTICAL
+2025-07-16 14:27:25 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: hybrid
+2025-07-16 14:27:25 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: ['AI公司', '融资情况', '投资关系']
+2025-07-16 14:27:32 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:27:43 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (11.15s)
+2025-07-16 14:27:43 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 1633 字符
+2025-07-16 14:27:43 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 1.00
+2025-07-16 14:27:43 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 1
+2025-07-16 14:37:24 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 测试查询...
+2025-07-16 14:37:26 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:37:26 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-16 14:37:26 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-16 14:37:26 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: []
+2025-07-16 14:37:37 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:37:43 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (6.16s)
+2025-07-16 14:37:43 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 866 字符
+2025-07-16 14:37:43 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.82
+2025-07-16 14:37:43 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-16 14:37:43 [INFO] src.agents.query_analysis:query_analysis_node:47 - 开始查询分析: 测试查询...
+2025-07-16 14:37:44 [INFO] src.agents.query_analysis:query_analysis_node:69 - 查询分析完成:
+2025-07-16 14:37:44 [INFO] src.agents.query_analysis:query_analysis_node:70 -   - 查询类型: FACTUAL
+2025-07-16 14:37:44 [INFO] src.agents.query_analysis:query_analysis_node:71 -   - LightRAG模式: local
+2025-07-16 14:37:44 [INFO] src.agents.query_analysis:query_analysis_node:72 -   - 关键实体: []
+2025-07-16 14:37:48 [INFO] src.agents.answer_generation:answer_generation_node:40 - 开始生成最终答案...
+2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:62 - ✅ 答案生成完成 (5.50s)
+2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 711 字符
+2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.82
+2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
