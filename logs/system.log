@@ -400,3 +400,17 @@ task: <Task cancelling name='Task-120' coro=<RunnableCallable.ainvoke() running 
 2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:63 - 答案长度: 711 字符
 2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:64 - 答案置信度: 0.82
 2025-07-16 14:37:54 [INFO] src.agents.answer_generation:answer_generation_node:65 - 信息来源数量: 4
+2025-07-16 14:50:26 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-16 14:50:26 [INFO] __main__:main:120 - ==================================================
+2025-07-16 14:50:26 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/data/lightrag
+2025-07-16 14:50:26 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-16 14:50:32 [INFO] __main__:main:140 - ✅ LightRAG初始化成功
+2025-07-16 14:50:32 [INFO] __main__:main:152 - 开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs
+2025-07-16 14:51:04 [ERROR] asyncio:default_exception_handler:1785 - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-268' coro=<priority_limit_async_func_call.<locals>.final_decro.<locals>.worker() running at /home/low_ater/SearchForRAG/LightRAG/lightrag/utils.py:382> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[set.discard(), gather.<locals>._done_callback() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:764]>
+2025-07-16 14:51:04 [ERROR] asyncio:default_exception_handler:1785 - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-269' coro=<priority_limit_async_func_call.<locals>.final_decro.<locals>.worker() running at /home/low_ater/SearchForRAG/LightRAG/lightrag/utils.py:382> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[set.discard(), gather.<locals>._done_callback() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:764]>
+2025-07-16 14:51:04 [ERROR] asyncio:default_exception_handler:1785 - Task was destroyed but it is pending!
+task: <Task pending name='Task-415' coro=<Queue.get() running at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/queues.py:158> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[_release_waiter(<Future pendi...ask_wakeup()]>)() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:431]>
+2025-07-16 14:51:04 [ERROR] asyncio:default_exception_handler:1785 - Task was destroyed but it is pending!
+task: <Task pending name='Task-416' coro=<Queue.get() running at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/queues.py:158> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[_release_waiter(<Future pendi...ask_wakeup()]>)() at /home/low_ater/miniconda3/envs/SearchForRAG/lib/python3.11/asyncio/tasks.py:431]>

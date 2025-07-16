@@ -192,3 +192,15 @@
 {"timestamp": "2025-07-16T14:06:46.538708", "level": "INFO", "logger": "__main__", "message": "  - 总大小: 17,236 字节", "module": "ingest_documents", "function": "main", "line": 161}
 {"timestamp": "2025-07-16T14:06:46.538833", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 163}
 {"timestamp": "2025-07-16T14:06:46.538962", "level": "INFO", "logger": "__main__", "message": "🎉 文档导入完成！", "module": "ingest_documents", "function": "main", "line": 164}
+{"timestamp": "2025-07-16T14:54:21.105221", "level": "INFO", "logger": "__main__", "message": "🚀 开始文档导入流程...", "module": "ingest_documents", "function": "main", "line": 119}
+{"timestamp": "2025-07-16T14:54:21.116771", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 120}
+{"timestamp": "2025-07-16T14:54:21.117016", "level": "INFO", "logger": "__main__", "message": "RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag", "module": "ingest_documents", "function": "main", "line": 133}
+{"timestamp": "2025-07-16T14:54:21.117155", "level": "INFO", "logger": "__main__", "message": "初始化LightRAG系统...", "module": "ingest_documents", "function": "main", "line": 137}
+{"timestamp": "2025-07-16T14:54:33.929513", "level": "INFO", "logger": "__main__", "message": "✅ LightRAG初始化成功", "module": "ingest_documents", "function": "main", "line": 140}
+{"timestamp": "2025-07-16T14:54:33.929766", "level": "INFO", "logger": "__main__", "message": "开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs", "module": "ingest_documents", "function": "main", "line": 152}
+{"timestamp": "2025-07-16T14:55:27.138807", "level": "INFO", "logger": "__main__", "message": "文档导入统计:", "module": "ingest_documents", "function": "main", "line": 158}
+{"timestamp": "2025-07-16T14:55:27.139041", "level": "INFO", "logger": "__main__", "message": "  - 总文件数: 5", "module": "ingest_documents", "function": "main", "line": 159}
+{"timestamp": "2025-07-16T14:55:27.139222", "level": "INFO", "logger": "__main__", "message": "  - 文件类型: {'markdown': 5}", "module": "ingest_documents", "function": "main", "line": 160}
+{"timestamp": "2025-07-16T14:55:27.139402", "level": "INFO", "logger": "__main__", "message": "  - 总大小: 17,236 字节", "module": "ingest_documents", "function": "main", "line": 161}
+{"timestamp": "2025-07-16T14:55:27.139497", "level": "INFO", "logger": "__main__", "message": "==================================================", "module": "ingest_documents", "function": "main", "line": 163}
+{"timestamp": "2025-07-16T14:55:27.139651", "level": "INFO", "logger": "__main__", "message": "🎉 文档导入完成！", "module": "ingest_documents", "function": "main", "line": 164}

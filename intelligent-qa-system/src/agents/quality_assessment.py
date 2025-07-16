@@ -102,6 +102,25 @@ def _comprehensive_quality_assessment(state: AgentState) -> QualityAssessment:
     # 计算加权综合分数
     confidence_score = sum(factors[factor] * weights[factor] for factor in factors)
     
+    # 本地知识库加分机制 - 鼓励使用本地结果
+    if state.get("retrieval_success", False):
+        lightrag_mode = state.get("lightrag_mode", "")
+        # 根据检索模式给予额外加分
+        local_bonus = {
+            "local": 0.10,    # 本地检索加分
+            "global": 0.12,   # 全局检索稍高加分
+            "hybrid": 0.15    # 混合检索最高加分
+        }.get(lightrag_mode, 0.08)
+        
+        # 如果检索到了内容，给予额外奖励
+        content = state.get("lightrag_results", {}).get("content", "")
+        if content and len(content.strip()) > 50:
+            confidence_score += local_bonus
+            logger.debug(f"本地知识库加分: +{local_bonus:.2f} (模式: {lightrag_mode})")
+    
+    # 确保分数不超过1.0
+    confidence_score = min(confidence_score, 1.0)
+    
     # 根据查询类型设置动态阈值
     threshold = _get_dynamic_threshold(state)
     
@@ -133,19 +152,19 @@ def _evaluate_content_completeness(state: AgentState) -> float:
     
     content_length = len(content.strip())
     
-    # 基于内容长度的完整性评估
-    if content_length >= 1500:
+    # 优化后的内容长度评估标准 - 更宽松的要求
+    if content_length >= 800:
         return 1.0
-    elif content_length >= 1000:
+    elif content_length >= 400:
         return 0.9
-    elif content_length >= 500:
-        return 0.7
     elif content_length >= 200:
-        return 0.5
+        return 0.7  # 降低了200字符的评分要求
     elif content_length >= 100:
-        return 0.3
+        return 0.6  # 提高了100字符的评分
+    elif content_length >= 50:
+        return 0.4  # 增加了50字符的评分
     else:
-        return 0.1
+        return 0.2  # 提高了最低评分
 
 def _evaluate_entity_coverage(state: AgentState) -> float:
     """评估关键实体覆盖度"""
@@ -159,14 +178,32 @@ def _evaluate_entity_coverage(state: AgentState) -> float:
     if not content:
         return 0.0
     
-    # 检查关键实体是否在检索结果中被提及
-    covered_entities = 0
+    # 改进的实体覆盖度计算 - 采用加权评分和模糊匹配
+    total_score = 0.0
     for entity in expected_entities:
-        if entity.lower() in content:
-            covered_entities += 1
+        entity_lower = entity.lower()
+        
+        # 完全匹配给予满分
+        if entity_lower in content:
+            total_score += 1.0
+        else:
+            # 部分匹配和关键词匹配给予部分分数
+            entity_words = entity_lower.split()
+            matched_words = sum(1 for word in entity_words if word in content)
+            if matched_words > 0:
+                partial_score = (matched_words / len(entity_words)) * 0.6  # 部分匹配最多0.6分
+                total_score += partial_score
     
-    coverage = covered_entities / len(expected_entities)
-    return coverage
+    # 计算平均覆盖度，并应用宽松策略
+    coverage = total_score / len(expected_entities)
+    
+    # 对于覆盖度给予额外加分，鼓励部分匹配
+    if coverage >= 0.8:
+        return min(coverage + 0.1, 1.0)
+    elif coverage >= 0.5:
+        return min(coverage + 0.15, 1.0)
+    else:
+        return min(coverage + 0.2, 0.8)  # 即使覆盖度低也给予基础分数
 
 def _evaluate_mode_effectiveness(state: AgentState) -> float:
     """评估检索模式的有效性"""
@@ -221,11 +258,11 @@ def _get_dynamic_threshold(state: AgentState) -> float:
     # 基础阈值
     base_threshold = config.CONFIDENCE_THRESHOLD
     
-    # 根据查询类型调整阈值
+    # 根据查询类型调整阈值 - 优化后的更宽松标准
     type_adjustments = {
-        "FACTUAL": 0.1,      # 事实查询要求较高置信度
-        "RELATIONAL": 0.0,   # 关系查询使用基准阈值
-        "ANALYTICAL": -0.1   # 分析查询允许较低置信度
+        "FACTUAL": 0.05,     # 事实查询要求稍高置信度（从0.1降低）
+        "RELATIONAL": -0.05, # 关系查询允许稍低阈值
+        "ANALYTICAL": -0.15  # 分析查询允许更低置信度
     }
     
     adjustment = type_adjustments.get(query_type, 0.0)
