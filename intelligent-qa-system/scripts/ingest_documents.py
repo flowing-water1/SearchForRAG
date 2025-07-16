@@ -2,7 +2,7 @@
 文档导入脚本
 用于将文档导入到LightRAG系统中
 """
-
+## /home/low_ater/SearchForRAG/intelligent-qa-system/docs
 import sys
 import os
 import asyncio
@@ -16,7 +16,7 @@ sys.path.insert(0, str(project_root))
 # 使用绝对导入从src目录导入模块
 from src.core.config import config
 from src.utils.helpers import setup_logger
-from src.utils.lightrag_client import initialize_lightrag
+from src.utils.lightrag_client import initialize_lightrag_once
 from src.utils.document_processor import ingest_documents, document_processor
 
 logger = setup_logger(__name__)
@@ -135,9 +135,11 @@ async def main():
         # 初始化LightRAG（如果需要）
         if init_lightrag:
             logger.info("初始化LightRAG系统...")
-            success = await initialize_lightrag()
-            if not success:
-                logger.error("LightRAG初始化失败")
+            try:
+                await initialize_lightrag_once()
+                logger.info("✅ LightRAG初始化成功")
+            except Exception as e:
+                logger.error(f"LightRAG初始化失败: {e}")
                 return False
         
         # 验证路径

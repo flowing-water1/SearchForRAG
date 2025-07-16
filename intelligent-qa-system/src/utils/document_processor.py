@@ -13,7 +13,7 @@ from datetime import datetime
 
 from ..core.config import config
 from ..utils.simple_logger import get_simple_logger
-from ..utils.lightrag_client import lightrag_client
+from ..utils.lightrag_client import lightrag_client, initialize_lightrag_once
 
 # 简单的辅助函数，避免循环导入
 def get_file_hash(file_path: Path) -> str:
@@ -322,8 +322,18 @@ async def ingest_documents(
         formatted_content = f"# {doc.title}\n\n{doc.content}"
         contents.append(formatted_content)
         
-    # 导入到 LightRAG
-    success = await lightrag_client.insert_documents(contents)
+    # 确保 LightRAG 已初始化并导入文档
+    try:
+        # 获取已初始化的 LightRAG 实例
+        rag_instance = await initialize_lightrag_once()
+        
+        # 直接使用 LightRAG 实例进行文档插入
+        await rag_instance.ainsert(contents)
+        logger.info("✅ 文档已成功插入到 LightRAG")
+        success = True
+    except Exception as e:
+        logger.error(f"❌ 文档插入失败: {e}")
+        success = False
     
     if success:
         logger.info(f"✅ 文档导入完成: {len(docs)} 个文档")

@@ -163,3 +163,32 @@
 2025-07-15 11:56:09 [INFO] __main__:main:159 -   - 总大小: 12,918 字节
 2025-07-15 11:56:09 [INFO] __main__:main:161 - ==================================================
 2025-07-15 11:56:09 [INFO] __main__:main:162 - 🎉 文档导入完成！
+2025-07-16 14:00:04 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-16 14:00:04 [INFO] __main__:main:120 - ==================================================
+2025-07-16 14:00:04 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
+2025-07-16 14:00:04 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-16 14:00:04 [ERROR] __main__:main:169 - ❌ 文档导入过程中发生错误: object NoneType can't be used in 'await' expression
+2025-07-16 14:05:36 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-16 14:05:36 [INFO] __main__:main:120 - ==================================================
+2025-07-16 14:05:36 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
+2025-07-16 14:05:36 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-16 14:05:42 [INFO] __main__:main:140 - ✅ LightRAG初始化成功
+2025-07-16 14:05:42 [INFO] __main__:main:152 - 开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs
+2025-07-16 14:05:43 [INFO] __main__:main:158 - 文档导入统计:
+2025-07-16 14:05:43 [INFO] __main__:main:159 -   - 总文件数: 4
+2025-07-16 14:05:43 [INFO] __main__:main:160 -   - 文件类型: {'markdown': 4}
+2025-07-16 14:05:43 [INFO] __main__:main:161 -   - 总大小: 12,918 字节
+2025-07-16 14:05:43 [INFO] __main__:main:163 - ==================================================
+2025-07-16 14:05:43 [INFO] __main__:main:164 - 🎉 文档导入完成！
+2025-07-16 14:06:12 [INFO] __main__:main:119 - 🚀 开始文档导入流程...
+2025-07-16 14:06:12 [INFO] __main__:main:120 - ==================================================
+2025-07-16 14:06:12 [INFO] __main__:main:133 - RAG Working Directory (Absolute Path): /home/low_ater/SearchForRAG/intelligent-qa-system/scripts/data/lightrag
+2025-07-16 14:06:12 [INFO] __main__:main:137 - 初始化LightRAG系统...
+2025-07-16 14:06:25 [INFO] __main__:main:140 - ✅ LightRAG初始化成功
+2025-07-16 14:06:25 [INFO] __main__:main:152 - 开始导入文档: /home/low_ater/SearchForRAG/intelligent-qa-system/docs
+2025-07-16 14:06:46 [INFO] __main__:main:158 - 文档导入统计:
+2025-07-16 14:06:46 [INFO] __main__:main:159 -   - 总文件数: 5
+2025-07-16 14:06:46 [INFO] __main__:main:160 -   - 文件类型: {'markdown': 5}
+2025-07-16 14:06:46 [INFO] __main__:main:161 -   - 总大小: 17,236 字节
+2025-07-16 14:06:46 [INFO] __main__:main:163 - ==================================================
+2025-07-16 14:06:46 [INFO] __main__:main:164 - 🎉 文档导入完成！
