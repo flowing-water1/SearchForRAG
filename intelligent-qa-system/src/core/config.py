@@ -87,7 +87,7 @@ class Config:
     LLM_MODEL_MAX_ASYNC = int(os.getenv("RAG_LLM_MODEL_MAX_ASYNC", "12"))
     
     # 检索配置
-    CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.7"))
+    CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.5"))  # 降低基础阈值，减少不必要的网络搜索
     MAX_LOCAL_RESULTS = 10
     MAX_WEB_RESULTS = 5
     VECTOR_SIMILARITY_THRESHOLD = 0.75

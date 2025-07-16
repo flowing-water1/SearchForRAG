@@ -105,6 +105,48 @@ async def custom_embedding_func(texts: List[str]) -> List[List[float]]:
 if hasattr(config, 'EMBEDDING_DIM') and config.EMBEDDING_DIM:
     setattr(custom_embedding_func, 'embedding_dim', config.EMBEDDING_DIM)
 
+def get_mode_description(mode: str) -> Dict[str, str]:
+    """
+    获取检索模式的特性描述
+    
+    Args:
+        mode: 检索模式 ("local", "global", "hybrid")
+        
+    Returns:
+        模式特性描述字典
+    """
+    mode_descriptions = {
+        "local": {
+            "algorithm": "向量相似度检索",
+            "focus": "局部上下文相关信息",
+            "storage_usage": "主要使用向量存储",
+            "complexity": "低复杂度，快速检索",
+            "best_for": "事实性查询、具体概念定义"
+        },
+        "global": {
+            "algorithm": "知识图谱关系遍历",
+            "focus": "全局知识关系网络",
+            "storage_usage": "主要使用图数据库",
+            "complexity": "高复杂度，深度推理",
+            "best_for": "关系性查询、复杂推理"
+        },
+        "hybrid": {
+            "algorithm": "向量检索 + 图谱遍历组合",
+            "focus": "综合局部相似性和全局关系",
+            "storage_usage": "同时使用向量存储和图数据库",
+            "complexity": "最高复杂度，最全面覆盖",
+            "best_for": "复杂分析查询、综合理解"
+        }
+    }
+    
+    return mode_descriptions.get(mode, {
+        "algorithm": "未知算法",
+        "focus": "未知",
+        "storage_usage": "未知",
+        "complexity": "未知",
+        "best_for": "未知"
+    })
+
 class LightRAGClient:
     """
     LightRAG 客户端封装类 (HKUDS/LightRAG)
@@ -116,19 +158,13 @@ class LightRAGClient:
         self._initialized = False
         self._working_dir = str(config.RAG_STORAGE_DIR)
         
-        # 新增：检索效果监控指标
+        # 检索效果监控指标
         self._query_stats = {
             "total_queries": 0,
             "successful_queries": 0,
             "failed_queries": 0,
             "modes_used": {"local": 0, "global": 0, "hybrid": 0, "naive": 0, "mix": 0},
-            "average_response_time": 0.0,
-            "storage_backend_hits": {
-                "neo4j_graph": 0,
-                "postgres_vector": 0,
-                "postgres_kv": 0,
-                "postgres_docstatus": 0
-            }
+            "average_response_time": 0.0
         }
     
     async def initialize(self) -> bool:
@@ -156,15 +192,15 @@ class LightRAGClient:
             os.environ["NEO4J_USERNAME"] = config.NEO4J_USERNAME
             os.environ["NEO4J_PASSWORD"] = config.NEO4J_PASSWORD
             
-            # 创建 LightRAG 实例
+            # 创建 LightRAG 实例 - 使用统一存储配置
             self.rag_instance = LightRAG(
                 working_dir=self._working_dir,
                 llm_model_func=custom_llm_func,
                 embedding_func=custom_embedding_func,
-                # -- 混合存储方案：Neo4j图存储 + PostgreSQL其他存储 --
+                # 统一存储方案：PostgreSQL + Neo4j
                 kv_storage="PGKVStorage",
                 vector_storage="PGVectorStorage", 
-                graph_storage="Neo4JStorage",  # 使用Neo4j作为图存储（注意大小写）
+                graph_storage="Neo4JStorage",
                 doc_status_storage="PGDocStatusStorage"
             )
             
@@ -192,6 +228,7 @@ class LightRAGClient:
         """记录当前配置信息"""
         logger.info("LightRAG 配置信息:")
         logger.info(f"  - 工作目录: {self._working_dir}")
+        logger.info(f"  - 存储方案: PostgreSQL (向量/KV/文档状态) + Neo4j (图数据)")
         logger.info(f"  - 知识图谱LLM模型: {config.KG_LLM_MODEL}")
         logger.info(f"  - 知识图谱LLM Base URL: {config.KG_LLM_BASE_URL}")
         logger.info(f"  - 嵌入模型: {config.EMBEDDING_MODEL}")
@@ -214,14 +251,8 @@ class LightRAGClient:
         try:
             logger.info(f"正在插入 {len(documents)} 个文档...")
             
-            # 添加调试信息
-            logger.info("调试: 检查 rag_instance 状态...")
-            logger.info(f"调试: rag_instance 类型: {type(self.rag_instance)}")
-            
-            # 直接调用 ainsert 方法，这是推荐的方式
-            logger.info("调试: 开始调用 ainsert...")
+            # 调用 ainsert 方法
             await self.rag_instance.ainsert(documents)
-            logger.info("调试: ainsert 调用完成")
                 
             logger.info("✅ 文档插入完成")
             return True
@@ -264,7 +295,7 @@ class LightRAGClient:
             self._query_stats["total_queries"] += 1
             self._query_stats["modes_used"][mode] = self._query_stats["modes_used"].get(mode, 0) + 1
             
-            # 执行查询 - 使用 LightRAG 的异步查询方法 aquery
+            # 使用标准的LightRAG查询方式
             result = await self.rag_instance.aquery(
                 query,
                 param=QueryParam(mode=mode, **kwargs)
@@ -275,12 +306,13 @@ class LightRAGClient:
             
             # 更新成功统计
             self._query_stats["successful_queries"] += 1
-            self._query_stats["storage_backend_hits"]["neo4j_graph"] += 1 if mode in ["global", "hybrid"] else 0
-            self._query_stats["storage_backend_hits"]["postgres_vector"] += 1 if mode in ["local", "hybrid"] else 0
             
             # 更新平均响应时间
             total_time = self._query_stats["average_response_time"] * (self._query_stats["successful_queries"] - 1) + response_time
             self._query_stats["average_response_time"] = total_time / self._query_stats["successful_queries"]
+            
+            # 获取模式特性描述
+            mode_desc = get_mode_description(mode)
             
             return {
                 "success": True,
@@ -294,6 +326,7 @@ class LightRAGClient:
                     "graph_storage": "Neo4JStorage (Neo4j)",
                     "doc_status_storage": "PGDocStatusStorage (PostgreSQL)"
                 },
+                "mode_description": mode_desc,
                 "query_stats": self._get_query_stats()
             }
             
@@ -321,9 +354,8 @@ class LightRAGClient:
             "total_queries": total,
             "success_rate": f"{success_rate:.1f}%",
             "average_response_time": f"{self._query_stats['average_response_time']:.2f}s",
-            "modes_distribution": self._query_stats["modes_used"],
-            "storage_hits": self._query_stats["storage_backend_hits"]
-            }
+            "modes_distribution": self._query_stats["modes_used"]
+        }
     
     def get_supported_modes(self) -> List[str]:
         """
@@ -373,15 +405,25 @@ async def initialize_lightrag_once():
         try:
             logger.info("开始LightRAG全局初始化...")
             
+            # 设置环境变量
+            os.environ["POSTGRES_HOST"] = config.POSTGRES_HOST
+            os.environ["POSTGRES_PORT"] = str(config.POSTGRES_PORT)
+            os.environ["POSTGRES_DATABASE"] = config.POSTGRES_DB
+            os.environ["POSTGRES_USER"] = config.POSTGRES_USER
+            os.environ["POSTGRES_PASSWORD"] = config.POSTGRES_PASSWORD
+            os.environ["NEO4J_URI"] = config.NEO4J_URI
+            os.environ["NEO4J_USERNAME"] = config.NEO4J_USERNAME
+            os.environ["NEO4J_PASSWORD"] = config.NEO4J_PASSWORD
+            
             # 创建LightRAG实例
             rag = LightRAG(
                 working_dir=lightrag_client._working_dir,
                 llm_model_func=custom_llm_func,
                 embedding_func=custom_embedding_func,
-                # -- 启用混合存储方案：Neo4j图存储 + PostgreSQL其他存储 --
+                # 统一存储方案：PostgreSQL + Neo4j
                 kv_storage="PGKVStorage",
                 vector_storage="PGVectorStorage", 
-                graph_storage="Neo4JStorage",  # 使用Neo4j作为图存储（注意大小写）
+                graph_storage="Neo4JStorage",
                 doc_status_storage="PGDocStatusStorage"
             )
             
@@ -401,7 +443,7 @@ async def initialize_lightrag_once():
 
 async def query_lightrag(query: str, mode: str = "hybrid") -> Dict[str, Any]:
     """
-    异步查询LightRAG - 使用全局初始化的实例
+    异步查询LightRAG - 使用标准LightRAG配置
     """
     try:
         # 获取全局初始化的实例
@@ -409,7 +451,7 @@ async def query_lightrag(query: str, mode: str = "hybrid") -> Dict[str, Any]:
         
         logger.info(f"执行查询: {query[:100]}... (模式: {mode})")
         
-        # 获取存储后端信息用于追踪
+        # 获取存储后端信息
         storage_info = {
             "kv_storage": "PGKVStorage (PostgreSQL)",
             "vector_storage": "PGVectorStorage (PostgreSQL)", 
@@ -417,14 +459,14 @@ async def query_lightrag(query: str, mode: str = "hybrid") -> Dict[str, Any]:
             "doc_status_storage": "PGDocStatusStorage (PostgreSQL)"
         }
         
-        # 直接使用aquery方法
-        result = await rag.aquery(
-            query, 
-            param=QueryParam(mode=mode)
-        )
+        # 使用标准LightRAG查询参数
+        result = await rag.aquery(query, param=QueryParam(mode=mode))
         
         logger.info("✅ LightRAG查询成功")
         logger.info(f"📊 存储后端: {storage_info}")
+        
+        # 获取模式特性描述
+        mode_desc = get_mode_description(mode)
         
         return {
             "success": True,
@@ -433,7 +475,8 @@ async def query_lightrag(query: str, mode: str = "hybrid") -> Dict[str, Any]:
             "query": query,
             "storage_backend": storage_info,
             "data_source": "database",
-            "retrieval_path": f"{mode} mode -> {storage_info['vector_storage']} + {storage_info['graph_storage']}"
+            "retrieval_path": f"{mode} mode -> {storage_info['vector_storage']} + {storage_info['graph_storage']}",
+            "mode_description": mode_desc
         }
         
     except Exception as e:
